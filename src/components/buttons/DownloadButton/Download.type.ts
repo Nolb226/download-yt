@@ -1,7 +1,7 @@
 export type DownloadButtonProps = {
     downloadUrl: string
     type: 'video' | 'audio' | 'caption'
-    size: number
+    // size: number
     resolution?: string
     extension: string
 }

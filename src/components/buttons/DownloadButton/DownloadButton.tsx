@@ -18,7 +18,7 @@ const types = {
 function DownloadButton({
     downloadUrl,
     resolution,
-    size,
+    // size,
     type,
     extension,
 }: DownloadButtonProps) {
@@ -35,7 +35,7 @@ function DownloadButton({
                 <IconComponent className="inline-block h-4 w-5" />{' '}
                 <span>{extension}</span>
             </p>
-            <span>({size})</span>
+            {/* <span>({size})</span> */}
         </a>
     )
 }
