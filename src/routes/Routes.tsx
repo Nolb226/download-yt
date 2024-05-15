@@ -3,6 +3,7 @@ import MainLayout from '../components/layouts/MainLayout'
 import Home from '../pages/Home'
 import VideoDetail from '../pages/Videos/VideoDetail'
 import { videoLoader } from '../pages/Videos/VideoDetail/video.loader'
+import {VideoDetailSkeleton} from "../pages/Videos/VideoDetail/VideoDetail.skeleton";
 
 export const AllRoute = createBrowserRouter([
     {

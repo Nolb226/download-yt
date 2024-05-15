@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, {useMemo, useState} from 'react'
 import Input from '../../components/inputs/Input'
 import Button from '../../components/buttons/Button'
 import { Outlet } from 'react-router-dom'
@@ -25,13 +25,25 @@ const steps = [
 ]
 
 function Home() {
-    const [videoLink, setVideoLink] = useState('')
+    const [videoLink, setVideoLink]=useState('');
+
+    function youtube_parser(url:string){
+        const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+        const match = url.match(regExp);
+        return (match&&match[7].length==11)? match[7] : '';
+    }
+
+    const handleOnChange = (e:React.ChangeEvent<HTMLInputElement>)=> {
+        setVideoLink(e.target.value);
+    }
+
+    const handleLink = useMemo(()=>youtube_parser(videoLink),[videoLink])
 
     return (
         <div>
             <div className="flex min-h-[calc(100vh_-_105px)] flex-col items-center justify-center bg-secondary px-8 pb-16 pt-20">
                 <h1 className="mb-8 text-5xl font-bold text-[#202020]">
-                    Youtube, Facebook Downloader
+                    Youtube Downloader
                 </h1>
                 <p className="mb-8 font-semibold text-[#535353]">
                     Download video from to your devices with just some few
@@ -40,11 +52,12 @@ function Home() {
                 <div className="rounded-xl bg-white p-8 shadow-main">
                     <div className="">
                         <Input
+                            onChange={handleOnChange}
                             id="video-input"
                             className=" w-[600px] text-lg"
                             placeholder="Paste link here..."
                         />
-                        <Button className="text-lg">Start Download</Button>
+                        <Button to={`/videos/${handleLink}`} className="text-lg">Start Download</Button>
                     </div>
                     <div className="mt-1">
                         <p className="text-sm text-[#b0b7bf]">

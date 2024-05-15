@@ -1,13 +1,16 @@
-import React, { Suspense } from 'react'
+import React, {Suspense, useState} from 'react'
 import { Await, useLoaderData } from 'react-router-dom'
 import DownloadButton from '../../../components/buttons/DownloadButton'
 import VideoNotFound from './VideoNotFound'
 import { IVideo } from '../../../types/video'
+import {VideoDetailSkeleton} from "./VideoDetail.skeleton";
 
 function VideoDetail() {
     const { data } = useLoaderData() as { data: IVideo }
+
+
     return (
-        <Suspense fallback={<div>test</div>}>
+        <Suspense fallback={<VideoDetailSkeleton/>}>
             <Await resolve={data} errorElement={<VideoNotFound />}>
                 {(video:IVideo) => {
                     console.log(video);
@@ -32,7 +35,7 @@ function VideoDetail() {
                                     <div className="flex items-center flex-col gap-4">
                                         <img
                                             className=" w-1/2 rounded-xl object-contain"
-                                            src={thumbnail.url}
+                                            src={thumbnail?.url}
                                             alt=""
                                         />
                                     </div>
@@ -77,7 +80,7 @@ function VideoDetail() {
                                                 Download Caption
                                             </span>
                                             <div className="flex mt-2 gap-4 flex-wrap">
-                                            {(subtitles).map(subtitle=>
+                                            {subtitles?.map(subtitle=>
                                             <DownloadButton
                                             key={subtitle.type}
                                             downloadUrl={subtitle.url}
