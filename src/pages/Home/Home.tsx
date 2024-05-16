@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from 'react'
+import React, { useMemo, useState } from 'react'
 import Input from '../../components/inputs/Input'
 import Button from '../../components/buttons/Button'
 import { Outlet } from 'react-router-dom'
@@ -25,19 +25,20 @@ const steps = [
 ]
 
 function Home() {
-    const [videoLink, setVideoLink]=useState('');
+    const [videoLink, setVideoLink] = useState('')
 
-    function youtube_parser(url:string){
-        const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-        const match = url.match(regExp);
-        return (match&&match[7].length==11)? match[7] : '';
+    function youtube_parser(url: string) {
+        const regExp =
+            /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/
+        const match = url.match(regExp)
+        return match && match[7].length == 11 ? match[7] : ''
     }
 
-    const handleOnChange = (e:React.ChangeEvent<HTMLInputElement>)=> {
-        setVideoLink(e.target.value);
+    const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setVideoLink(e.target.value)
     }
 
-    const handleLink = useMemo(()=>youtube_parser(videoLink),[videoLink])
+    const handleLink = useMemo(() => youtube_parser(videoLink), [videoLink])
 
     return (
         <div>
@@ -57,7 +58,12 @@ function Home() {
                             className=" w-[600px] text-lg"
                             placeholder="Paste link here..."
                         />
-                        <Button to={`/videos/${handleLink}`} className="text-lg">Start Download</Button>
+                        <Button
+                            to={`/videos/${handleLink}`}
+                            className="text-lg"
+                        >
+                            Start Download
+                        </Button>
                     </div>
                     <div className="mt-1">
                         <p className="text-sm text-[#b0b7bf]">
